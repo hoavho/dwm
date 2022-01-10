@@ -88,8 +88,8 @@ static Key keys[] = {
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
-	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
-	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
+	{ MODKEY,                       XK_o,      incnmaster,     {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_o,      incnmaster,     {.i = -1 } },
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
 	{ MODKEY|ShiftMask,             XK_h,      setcfact,       {.f = +0.25} },
@@ -114,9 +114,14 @@ static Key keys[] = {
 	{ MODKEY|Mod4Mask|ShiftMask,    XK_0,      defaultgaps,    {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
-	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
-	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
-	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
+	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },  /* tile */
+	{ MODKEY|ShiftMask,             XK_t,      setlayout,      {.v = &layouts[5]} },  /* bstack */
+	{ MODKEY,                       XK_y,      setlayout,      {.v = &layouts[2]} },  /* spiral */
+	{ MODKEY|ShiftMask,             XK_y,      setlayout,      {.v = &layouts[3]} },  /* dwindle */
+	{ MODKEY,                       XK_u,      setlayout,      {.v = &layouts[4]} },  /* deck */
+	{ MODKEY|ShiftMask,             XK_u,      setlayout,      {.v = &layouts[1]} },  /* monocle */
+	{ MODKEY,                       XK_i,      setlayout,      {.v = &layouts[11]} }, /* centeredmaster */
+	{ MODKEY|ShiftMask,             XK_i,      setlayout,      {.v = &layouts[12]} }, /* centeredfloatingmaster */
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },

@@ -10,8 +10,8 @@ static unsigned int gappov    = 20;       /* vert outer gap between windows and 
 static       int smartgaps          = 0;        /* 1 means no outer gap when there is only one window */
 static int showbar            = 1;        /* 0 means no bar */
 static int topbar             = 1;        /* 0 means bottom bar */
-static char *fonts[]          = { "DejaVu Sans Mono:size=10", "NotoColorEmoji:pixelsize=18:antialias=true:autohint=true" };
-static char dmenufont[]       = "monospace:size=10";
+static char *fonts[]          = { "monospace:size=14", "NotoColorEmoji:pixelsize=26:antialias=true:autohint=true", "JoyPixels:pixelsize=26:antialias=true:autohint=true" };
+static char dmenufont[]       = "monospace:size=14";
 static char normbgcolor[]           = "#222222";
 static char normbordercolor[]       = "#444444";
 static char normfgcolor[]           = "#bbbbbb";
@@ -30,7 +30,7 @@ enum { SchemeNorm, SchemeCol1, SchemeCol2, SchemeCol3, SchemeCol4,
 
 static const char *colors[][3]      = {
 	/*                fg           bg           border   */
-	[SchemeNorm]  = { normfgcolor, normbgcolor, normbgcolor, normbordercolor },
+	[SchemeNorm]  = { normfgcolor, normbgcolor, normbordercolor },
 	[SchemeCol1]  = { col1,        normbgcolor, normbordercolor },
 	[SchemeCol2]  = { col2,        normbgcolor, normbordercolor },
 	[SchemeCol3]  = { col3,        normbgcolor, normbordercolor },

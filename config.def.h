@@ -10,14 +10,27 @@ static unsigned int gappov    = 20;       /* vert outer gap between windows and 
 static       int smartgaps          = 0;        /* 1 means no outer gap when there is only one window */
 static int showbar            = 1;        /* 0 means no bar */
 static int topbar             = 1;        /* 0 means bottom bar */
-static char *fonts[]          = { "monospace:size=14", "NotoColorEmoji:pixelsize=26:antialias=true:autohint=true", "JoyPixels:pixelsize=26:antialias=true:autohint=true" };
-static char dmenufont[]       = "monospace:size=14";
-static char normbgcolor[]           = "#222222";
-static char normbordercolor[]       = "#444444";
-static char normfgcolor[]           = "#bbbbbb";
-static char selfgcolor[]            = "#eeeeee";
-static char selbordercolor[]        = "#ca9703";
-static char selbgcolor[]            = "#005577";
+static char *fonts[]          = { "monospace:size=12", "NotoColorEmoji:pixelsize=26:antialias=true:autohint=true", "JoyPixels:pixelsize=26:antialias=true:autohint=true" };
+static char dmenufont[]       = "monospace:size=12";
+static char normbgcolor[]           = "#222222"; // black 
+static char normbordercolor[]       = "#444444"; // gray
+static char normfgcolor[]           = "#bbbbbb"; // creamy white 
+static char selfgcolor[]            = "#eeeeee"; // white (a bit creamy)
+//static char selbordercolor[]        = "#ca9703";
+//static char selbordercolor[]        = "#fa190c"; // red
+static char selbordercolor[]        = "#fbb034"; // orange
+static char selbgcolor[]            = "#005577"; // blue
+static char sbnormalfgcolor[]	    = "#eeeeee";
+static char sbnormalbgcolor[]	    = "#222222";
+static char sbnormalbordercolor[]   = "#222222";
+//static char sbtitlefgcolor[]	    = "#e69138"; // orange
+//static char sbtitlefgcolor[]	    = "#fa190c"; // red
+static char sbtitlefgcolor[]	    = "#717c7d"; // gray+green
+static char sbtitlebgcolor[]	    = "#222222";
+static char sbtitlebordercolor[]    = "#222222";
+//static char sbwarnbgcolor[]	    = "#ffdd00"; // yellow
+static char sbwarnbgcolor[]	    = "#fbb034"; // orange 
+
 static char col1[]            = "#ffffff";
 static char col2[]            = "#ffffff";
 static char col3[]            = "#ffffff";
@@ -25,19 +38,19 @@ static char col4[]            = "#ffffff";
 static char col5[]            = "#ffffff";
 static char col6[]            = "#ffffff";
 
-enum { SchemeNorm, SchemeCol1, SchemeCol2, SchemeCol3, SchemeCol4,
-       SchemeCol5, SchemeCol6, SchemeSel }; /* color schemes */
+enum { SchemeNorm, SchemeSel, SchemeUrgent, SchemeWarn, 
+       SbNormal, SbTitle, SbWarn, SbCritical }; /* color schemes */
 
 static const char *colors[][3]      = {
 	/*                fg           bg           border   */
 	[SchemeNorm]  = { normfgcolor, normbgcolor, normbordercolor },
-	[SchemeCol1]  = { col1,        normbgcolor, normbordercolor },
-	[SchemeCol2]  = { col2,        normbgcolor, normbordercolor },
-	[SchemeCol3]  = { col3,        normbgcolor, normbordercolor },
-	[SchemeCol4]  = { col4,        normbgcolor, normbordercolor },
-	[SchemeCol5]  = { col5,        normbgcolor, normbordercolor },
-	[SchemeCol6]  = { col6,        normbgcolor, normbordercolor },
 	[SchemeSel]   = { selfgcolor,  selbgcolor,  selbordercolor  },
+	[SchemeUrgent]   = { "#ffffff",  "#ff0000",  "#ff0000"  },
+	[SchemeWarn]     = { "#f44336",  "#222222",  "#ff0000"  },
+	[SbNormal]   	 = { sbnormalfgcolor,  sbnormalbgcolor,  sbnormalbordercolor  },
+	[SbTitle]   	 = { sbtitlefgcolor,  sbtitlebgcolor,  sbtitlebordercolor  },
+	[SbWarn]         = { "#fa190c",  sbwarnbgcolor,  sbwarnbgcolor  },
+	[SbCritical]     = { "#ffffff",  "#fa190c",  "#fa190c"  },
 };
 
 /* tagging */
@@ -97,6 +110,11 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
 static const char *clipcmd[]  = { "clipmenu", "-i", "-fn", dmenufont, "-nb", "#002b36", "-nf", "#839496", "-sb", "#073642", "-sf", "#93a1a1", NULL };
 static const char *termcmd[]  = { "st", NULL };
+/* Call "lock" command 
+ * "lock" is a symlink to ~/.local/scripts/lock.sh script 
+ * sudo ln -s ~/.local/scripts/lock.sh /usr/local/bin/lock
+ * */
+static const char *lockcmd[]  = { "lock", NULL };
 
 /*
  * Xresources preferences to load at startup
@@ -122,6 +140,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY|ShiftMask,             XK_m,      spawn,          {.v = clipcmd } },
+	{ MODKEY|Mod4Mask|ShiftMask,    XK_l,      spawn,          {.v = lockcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
